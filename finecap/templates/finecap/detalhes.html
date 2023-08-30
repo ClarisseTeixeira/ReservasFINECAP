@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block center %}
+<h1 class="fs-2">{{ reserva.nome_empresa }}</h1>
+<p class="fs-6">{{ reserva.categoria_empresa }} </p>
+<p class="fs-4 fw-medium">R${{ reserva.cnpj }}</p>
+<p class="fs-4 fw-medium">R${{ reserva.stand }}</p>
+<p class="fs-4 fw-medium">R${{ reserva.quitato }}</p>
+
+{% endblock %}
