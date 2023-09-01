@@ -14,7 +14,7 @@
                 <th scope="col">cnpj</th>
                 <th scope="col">Stand</th>
                 <th scope="col">Quitato</th>
-                <th scope="col">Editar</th>
+                <th scope="col">Mais</th>
             </tr>
         </thead>
        
@@ -26,7 +26,9 @@
                 <td>{{ reserva.categoria_empresa }}</td>
                 <td>{{ reserva.cnpj }}</td>
                 <td>{{ reserva.stand }}</td>
-                <td>{{ reserva.quitato }}</td>                
+                <td>{% if reserva.quitado == True %} Quitado 
+                    {% else %} Pendente 
+                    {% endif %}</td>                
                 <td>
                     <a href="{% url 'editar' id=reserva.id %}"><i class="fas fa-edit"></i></a>
                     <a href="{% url 'remover' id=reserva.id %}"><i class="fas fa-trash-alt"></i></a>
