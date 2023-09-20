@@ -1,8 +1,5 @@
 from django.db import models
-
-# Create your models here.
-
-from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -18,5 +15,8 @@ class Reserva(models.Model):
     cnpj = models.CharField(max_length=250)
     nome_empresa = models.CharField(max_length=250)
     categoria_empresa = models.CharField(max_length=250)
-    quitato = models.BooleanField(default=False)
+    quitado = models.BooleanField(default=False)
+    data_reserva = models.DateTimeField(default=timezone.now)
     stand = models.ForeignKey(Stand, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.nome_empresa

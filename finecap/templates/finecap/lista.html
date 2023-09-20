@@ -2,6 +2,21 @@
 
 {% block title %}Lista de Usuários{% endblock %}
 
+{% block forms %}
+<form action="{% url 'listar' %}" method="get">
+    <div class="input-group mb-2 ">
+        <input type="text" class="form-control form-control-dark" name="filtro" placeholder="Pesquisar" aria-label="Pesquisar" value="{{ request.GET.filtro }}">
+        <div class="input-group-prepend">
+            <button class="btn btn-success" type="submit">Buscar</button>
+            <a href="{% url 'listar' %}" class="btn btn-light">Limpar</a>
+        </div>
+    </div>
+   
+</form>
+{% endblock %}
+
+
+
 {% block center %}
 <div class="mt-5">
     <h2>Lista de Usuários</h2>
@@ -11,24 +26,25 @@
             <tr>
                 <th scope="col">Nome da empresa</th>
                 <th scope="col">Categoria da empresa</th>
-                <th scope="col">cnpj</th>
+                <th scope="col">CNPJ</th>
                 <th scope="col">Stand</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Data de Reserva</th>
                 <th scope="col">Quitato</th>
                 <th scope="col">Mais</th>
             </tr>
         </thead>
        
         <tbody>
-            
             {% for reserva in reserva %}
             <tr>
                 <td>{{ reserva.nome_empresa }}</td>
                 <td>{{ reserva.categoria_empresa }}</td>
                 <td>{{ reserva.cnpj }}</td>
                 <td>{{ reserva.stand }}</td>
-                <td>{% if reserva.quitado == True %} Quitado 
-                    {% else %} Pendente 
-                    {% endif %}</td>                
+                <td>{{ reserva.stand.valor }}</td>
+                <td>{{  reserva.data_reserva|date:"d/m/Y" }}</td> 
+                <td>{% if reserva.quitado == True %} Quitado {% else %} Pendente {% endif %}</td>                
                 <td>
                     <a href="{% url 'editar' id=reserva.id %}"><i class="fas fa-edit"></i></a>
                     <a href="{% url 'remover' id=reserva.id %}"><i class="fas fa-trash-alt"></i></a>
@@ -37,7 +53,6 @@
             </tr>
             {% endfor %}
         </tbody>
-        
     </table>
 
     <div class="mb-3">

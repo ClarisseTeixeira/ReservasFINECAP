@@ -6,7 +6,7 @@ class ReservaForm(ModelForm):
 
     class Meta:
         model = Reserva
-        fields = ['cnpj', 'nome_empresa', 'categoria_empresa', 'stand', 'quitato']
+        fields = ['cnpj', 'nome_empresa', 'categoria_empresa', 'stand', 'quitado']
         widgets = {
             'cnpj': forms.TextInput(attrs={'class': 'form-control'}),
             'nome_empresa': forms.TextInput(attrs={'class': 'form-control'}),

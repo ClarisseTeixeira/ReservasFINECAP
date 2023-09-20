@@ -2,6 +2,8 @@ from django.shortcuts import render,get_object_or_404,redirect
 from .models import Reserva, Stand
 from .forms import ReservaForm
 from django.contrib import messages
+from django.db.models import Q
+
 # Create your views here.
 
 def editar(request, id):
@@ -39,10 +41,26 @@ def criar(request):
 
 
 def listar(request):
-    reserva = Reserva.objects.all()
+    reserva = Reserva.objects.all().order_by('-data_reserva')
+    filtro = request.GET.get('filtro')
+    if filtro:
+        if filtro.lower() == "quitado":
+            reserva = reserva.filter(quitado=True)
+        elif filtro.lower() == "pendente":
+            reserva = reserva.filter(quitado=False)
+        else:
+            reserva = reserva.filter(
+            Q(nome_empresa__icontains=filtro) |
+            Q(stand__valor__icontains=filtro) |
+            Q(quitado__icontains=filtro) |
+            Q(data_reserva__icontains=filtro)
+        )
+
     context = {
+        'filtro': filtro,
         'reserva': reserva
     }
+
     return render(request, "finecap/lista.html", context)
 
 
