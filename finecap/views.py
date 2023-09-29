@@ -3,6 +3,7 @@ from .models import Reserva, Stand
 from .forms import ReservaForm
 from django.contrib import messages
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger 
 
 # Create your views here.
 
@@ -55,6 +56,14 @@ def listar(request):
             Q(quitado__icontains=filtro) |
             Q(data_reserva__icontains=filtro)
         )
+    paginator = Paginator(reserva, 2)  
+    page = request.GET.get('page')
+    try:
+        reserva = paginator.page(page)
+    except PageNotAnInteger:
+        reserva = paginator.page(1)
+    except EmptyPage:
+        reserva = paginator.page(paginator.num_pages)
 
     context = {
         'filtro': filtro,
