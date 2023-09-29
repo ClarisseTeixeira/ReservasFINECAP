@@ -17,3 +17,6 @@
 .d-block.mx-auto.mb-1, .bi.me-2 {
   fill: #ffffff;
 }
+.bi-trash3{
+  fill: red;
+}
