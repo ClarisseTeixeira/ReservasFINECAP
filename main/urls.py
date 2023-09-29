@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 from finecap.views import *
 
 urlpatterns = [
@@ -25,4 +27,4 @@ urlpatterns = [
     path('remover/<int:id>/',remover,name='remover'),
     path('listar/',listar,name='listar'),
     path('detalhes/<int:id>/',detalhes,name='detalhes'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
