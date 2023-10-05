@@ -42,33 +42,7 @@ def criar(request):
 
 
 def listar(request):
-    reserva = Reserva.objects.all().order_by('-data_reserva')
-    nome = request.GET.get('nome')
-    vf = request.GET.get('vf')
-    valor = request.GET.get('valor')
-    data = request.GET.get('data')
-    
-
-    if nome:
-         reserva = reserva.filter(nome_empresa__icontains=request.GET.get('nome'))
-    if vf == "quitado":
-         reserva = reserva.filter(quitado=True)
-    elif vf == "pendente":
-        reserva = reserva.filter(quitado=False)
-    if valor:
-        reserva = reserva.filter(stand__valor=request.GET.get('valor'))
-    if data:
-        reserva = reserva.filter(data_reserva__icontains=request.GET.get('data'))
-    
-
-    paginator = Paginator(reserva, 5)  
-    page = request.GET.get('page')
-    try:
-        reserva = paginator.page(page)
-    except PageNotAnInteger:
-        reserva = paginator.page(1)
-    except EmptyPage:
-        reserva = paginator.page(paginator.num_pages)
+    reserva = Reserva.objects.all()
 
     context = {
         'reserva': reserva

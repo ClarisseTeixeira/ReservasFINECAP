@@ -18,39 +18,7 @@
         <h1>Lista de Reservas</h1>
     </div>
 
-    <form class="py-2" action="{% url 'listar' %}" method="get">
-        <div class="row">
-            <div class="col input-group mb-2 ">
-                <input type="text" class="form-control" name="nome" placeholder="Nome" aria-label="Pesquisar">
-            </div>
     
-            <div class=" col input-group mb-2 ">
-                <input type="number" class="form-control" name="valor" placeholder="Valor" aria-label="Pesquisar">
-            </div>
-    
-            <div class=" col input-group mb-2 ">
-                <input type="date" class="form-control" name="data" placeholder="Data" aria-label="Pesquisar">
-            </div>
-    
-    
-            <div class="col input-group mb-2">
-                <div class="form-check m-1">
-                    <input class="form-check-input " type="radio" name="vf" id="quitado" value="quitado">
-                    <label class="form-check-label" for="quitado">Quitado</label>
-                </div>
-            
-                <div class="form-check m-1">
-                    <input type="radio" class="form-check-input" name="vf" id="pendente" value="pendente">
-                    <label class="form-check-label" for="pendente">Pendente</label>
-                </div>
-            </div>
-            
-            <div class="col input-group-prepend">
-                <button class="btn btn-success" type="submit">Buscar</button>
-                <a href="{% url 'listar' %}" class="btn btn-light">Limpar</a>
-            </div>
-        </div>
-    </form>
     
     <table class="table">
         <thead class="thead-light">
@@ -83,37 +51,7 @@
     </table>
 
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            {% if reserva.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page=1" aria-label="Primeira">
-                    <span aria-hidden="true">&laquo;&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{ reserva.previous_page_number }}" aria-label="Anterior">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            {% endif %}
-
-            <li class="page-item"><span class="page-link">{{ reserva.number }}</span></li>
-
-            {% if reserva.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ reserva.next_page_number }}" aria-label="Próxima">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{ reserva.paginator.num_pages }}" aria-label="Última">
-                    <span aria-hidden="true">&raquo;&raquo;</span>
-                </a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
+   
 
     <div class="mb-3">
         <a href="{% url 'criar' %}" class="btn btn-primary">Adicionar Novo</a>
