@@ -3,10 +3,11 @@ from .models import Reserva, Stand
 from .forms import ReservaForm
 from django.contrib import messages
 from django.db.models import Q
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required 
 
 # Create your views here.
-
+@login_required 
 def editar(request, id):
     reserva = get_object_or_404(Reserva,id=id)
    
@@ -22,12 +23,13 @@ def editar(request, id):
 
     return render(request,'finecap/form.html',{'form':form})
 
+@login_required
 def remover(request, id):
     reserva = get_object_or_404(Reserva, id=id)
     reserva.delete()
     return redirect('listar') # procure um url com o nome 'lista_aluno'
 
-
+@login_required
 def criar(request):
     if request.method == 'POST':
         form = ReservaForm(request.POST, request.FILES)
@@ -40,7 +42,7 @@ def criar(request):
 
     return render(request, "finecap/form.html", {'form': form})
 
-
+@login_required
 def listar(request):
     reserva = Reserva.objects.all().order_by('-data_reserva')
     nome = request.GET.get('nome')
@@ -76,7 +78,7 @@ def listar(request):
 
     return render(request, "finecap/lista.html", context)
 
-
+@login_required
 def detalhes(request, id): 
     reserva = get_object_or_404(Reserva, id=id)
     context = {
