@@ -61,15 +61,6 @@ def listar(request):
         reserva = reserva.filter(data_reserva__icontains=request.GET.get('data'))
     
 
-    paginator = Paginator(reserva, 5)  
-    page = request.GET.get('page')
-    try:
-        reserva = paginator.page(page)
-    except PageNotAnInteger:
-        reserva = paginator.page(1)
-    except EmptyPage:
-        reserva = paginator.page(paginator.num_pages)
-
     context = {
         'reserva': reserva
     }
